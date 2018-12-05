@@ -2,6 +2,7 @@ pragma solidity >=0.4.22 <0.6.0;
 
 interface Token { 
     function transferFrom(address _from, address _to, uint256 _value) external returns (bool success);
+    function transfer(address _to, uint256 _value) external;
 }
 
 contract tokenRecipient {

@@ -1,8 +1,20 @@
 pragma solidity >=0.4.22 <0.6.0;
 
+interface Token { 
+    function transferFrom(address _from, address _to, uint256 _value) external returns (bool success);
+}
+
+contract tokenRecipient {
+    event receivedTokens(address _from, uint256 _value, address _token, bytes _extraData);
+    function receiveApproval(address _from, uint256 _value, address _token, bytes memory _extraData) public; 
+}
+
 contract ProofDevelodio
 {
     address private _owner;
+
+    // The stored balance of tokens associated with the user
+    mapping (address => uint256) public payers;
 
     struct OwnerDetails {
         string firstname;
@@ -46,6 +58,23 @@ contract ProofDevelodio
     }
 
     function() external payable {}
+
+    /**
+     * Set allowance for other address and notify
+     *
+     * Allows user to pay for a service with approveAndCall()
+     *
+     * @param _from is the address of the user
+     * @param _value is the tokens the user deposited to the service contract
+     * @param _token is the address of the token contract
+     * @param _extraData is additional data (optional)
+     */
+    function receiveApproval(address _from, uint256 _value, address _token, bytes memory _extraData) public {
+        Token t = Token(_token);
+        require(t.transferFrom(_from, address(this), _value));
+        payers[_from] += _value;
+        //ReceivedTokens(_from, _value, _token, _extraData);
+    }
 
     function withdraw(address payable to, uint amount) validOwner public {
         require(address(this).balance >= amount);

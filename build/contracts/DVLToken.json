@@ -10281,12 +10281,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x8326DB078bbb3aA14dDe3D58CA5F86522F077fB9",
-      "transactionHash": "0x88ceec83094cf95bd0cc459d5a850f8a051504c5d53eaa3e780e1c7284ce4ed9"
+      "address": "0xE4E7Fed67587C254ad16396D27B7eBc4Ce3EE937",
+      "transactionHash": "0xdd53e9a20d3212c95d1dbce78ee9b7d21e565f67256bc19855976163a026b177"
     }
   },
   "schemaVersion": "3.0.0-beta.2",
-  "updatedAt": "2018-12-05T17:04:34.517Z",
+  "updatedAt": "2018-12-08T18:06:12.210Z",
   "devdoc": {
     "methods": {
       "approve(address,uint256)": {

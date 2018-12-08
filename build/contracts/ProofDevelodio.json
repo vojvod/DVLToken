@@ -16919,12 +16919,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0xEDE9AF110F270B4d145278E218060388cC90b827",
-      "transactionHash": "0x8fa343f1f8223d5ac4a8d963b1955e6025d51a88df7f34f087b7948a81d4a95a"
+      "address": "0x8f64cf0B16fDc5F5182eB33f7BE93c9F002566e7",
+      "transactionHash": "0x7307b667c328b3889bed4971f572739cbb8c28f8ac576cc5bba5546579aea317"
     }
   },
   "schemaVersion": "3.0.0-beta.2",
-  "updatedAt": "2018-12-05T17:04:35.255Z",
+  "updatedAt": "2018-12-08T18:06:12.957Z",
   "devdoc": {
     "methods": {
       "receiveApproval(address,uint256,address,bytes)": {

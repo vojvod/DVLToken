@@ -10,12 +10,14 @@ contract("ProofDevelodio", accounts => {
     const ipfsHash = "Qmb1E7YpmnQYEqRKcr6WjTFgKubYkWtN4PzdwKp6Tud3TA";
     const ipfsFileType = "test.pdf";
 
-    it('should add new file if value is 5000000000000000', () => {
+    const payValue = 5000000000000000;
+
+    it('should add new file if value is payValue', () => {
         let ProofDevelodioInstance;
         return ProofDevelodio.deployed()
             .then(instance => {
                 ProofDevelodioInstance = instance;
-                return ProofDevelodioInstance.setFile(firstname, lastname, email, fileHash, ipfsHash, ipfsFileType, comments, {from: accounts[0], value: 5000000000000000});
+                return ProofDevelodioInstance.setFile(firstname, lastname, email, fileHash, ipfsHash, ipfsFileType, comments, {from: accounts[0], value: payValue});
             })
             .then(setfile => {
                 return ProofDevelodioInstance.getFile(fileHash);
@@ -30,16 +32,16 @@ contract("ProofDevelodio", accounts => {
         return ProofDevelodio.deployed()
             .then(instance => {
                 ProofDevelodioInstance = instance;
-                return ProofDevelodioInstance.setFile(firstname, lastname, email, fileHash, ipfsHash, ipfsFileType, comments, {from: accounts[0], value: 5000000000000000});
+                return ProofDevelodioInstance.setFile(firstname, lastname, email, fileHash, ipfsHash, ipfsFileType, comments, {from: accounts[0], value: payValue});
             })
             .then(setFile => {
-                return ProofDevelodioInstance.addOwner(firstname, lastname, email, fileHash, {from: accounts[0], value: 5000000000000000})
+                return ProofDevelodioInstance.addOwner('simos', 'taskaris', email, fileHash, {from: accounts[0], value: payValue})
             })
             .then(addOner => {
                 return ProofDevelodioInstance.getFileOwner(fileHash, 1)
             })
             .then(newOwner => {
-                assert.equal(firstname, newOwner.ownerFirstName, "owner has not been added");
+                assert.equal('simos', newOwner.ownerFirstName, "owner has not been added");
             });
     });
 
@@ -48,19 +50,22 @@ contract("ProofDevelodio", accounts => {
         return ProofDevelodio.deployed()
             .then(instance => {
                 ProofDevelodioInstance = instance;
-                return ProofDevelodioInstance.setFile(firstname, lastname, email, fileHash, ipfsHash, ipfsFileType, comments, {from: accounts[0], value: 5000000000000000});
+                return ProofDevelodioInstance.setFile(firstname, lastname, email, fileHash, ipfsHash, ipfsFileType, comments, {from: accounts[0], value: payValue});
             })
             .then(setFile => {
-                return ProofDevelodioInstance.addOwner(firstname, lastname, email, fileHash, {from: accounts[0], value: 5000000000000000})
+                return ProofDevelodioInstance.addOwner('simos', lastname, email, fileHash, {from: accounts[0], value: payValue})
             })
-            .then(addOner => {
-                return ProofDevelodioInstance.removeOwner(fileHash, 1)
+            .then(addOwner0 => {
+                return ProofDevelodioInstance.addOwner('elpis', lastname, email, fileHash, {from: accounts[0], value: payValue})
             })
-            // .then(removeOwner => {
-            //     return ProofDevelodioInstance.getFileOwner(fileHash, 1)
-            // })
-            .then(getFileOwner => {
-                assert.notEqual(firstname, getFileOwner.ownerFirstName, "owner has not been removed");
+            .then(addOwner1 => {
+                return ProofDevelodioInstance.removeOwner(fileHash, 1, {from: accounts[0], value: payValue})
+            })
+            .then(removeOwner => {
+                return ProofDevelodioInstance.getFileOwner(fileHash, 1)
+            })
+            .then(results => {
+                assert.equal('simos', results.ownerFirstName, "owner has not been removed");
             });
     });
 

@@ -53,10 +53,10 @@ contract("ProofDevelodio", accounts => {
                 return ProofDevelodioInstance.setFile(firstname, lastname, email, fileHash, ipfsHash, ipfsFileType, comments, {from: accounts[0], value: payValue});
             })
             .then(setFile => {
-                return ProofDevelodioInstance.addOwner('simos', lastname, email, fileHash, {from: accounts[0], value: payValue})
+                return ProofDevelodioInstance.addOwner('simos', 'taskaris', email, fileHash, {from: accounts[0], value: payValue})
             })
             .then(addOwner0 => {
-                return ProofDevelodioInstance.addOwner('elpis', lastname, email, fileHash, {from: accounts[0], value: payValue})
+                return ProofDevelodioInstance.addOwner('elpis', 'charitou', email, fileHash, {from: accounts[0], value: payValue})
             })
             .then(addOwner1 => {
                 return ProofDevelodioInstance.removeOwner(fileHash, 1, {from: accounts[0], value: payValue})

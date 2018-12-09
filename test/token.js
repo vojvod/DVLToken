@@ -47,4 +47,21 @@ contract("DVLToken", accounts => {
     });
   });
 
+  it("should call a function that depends on a linked library", function() {
+    var dvl;
+    var dvlCoinBalance;
+    var dvlCoinEthBalance;
+
+    return DVLToken.deployed().then(function(instance) {
+      dvl = instance;
+      return dvl.balanceOf(accounts[0]);
+    }).then(function(outCoinBalance) {
+      dvlCoinBalance = outCoinBalance.toNumber();
+      return dvl.approveAndCall(accounts[1], 1, '0x0');
+    }).then(function(result) {
+      console.log(result);
+      assert.equal(result, true, "Library function returned unexpected function, linkage may be broken");
+    });
+  });
+
 })

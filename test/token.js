@@ -49,14 +49,23 @@ contract("DVLToken", accounts => {
 
   it("should call a function that depends on a linked library", function() {
     var dvl;
-    var dvlCoinBalance;
-    var dvlCoinEthBalance;
+
+    var account_one = accounts[0];
+    var account_two = accounts[1];
+
+    var account_one_starting_balance;
+    var account_two_starting_balance;
+    var account_one_ending_balance;
+    var account_two_ending_balance;
 
     return DVLToken.deployed().then(function(instance) {
       dvl = instance;
-      return dvl.balanceOf(accounts[0]);
-    }).then(function(outCoinBalance) {
-      dvlCoinBalance = outCoinBalance.toNumber();
+      return dvl.balanceOf(account_one);
+    }).then(function() {
+      return dvl.transfer(account_two, 1, {
+        from: account_one
+      });
+    }).then(function() {
       return dvl.approveAndCall(accounts[1], 1, '0x0');
     }).then(function(result) {
       console.log(result);
